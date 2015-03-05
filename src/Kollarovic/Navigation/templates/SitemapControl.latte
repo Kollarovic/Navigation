@@ -1,0 +1,24 @@
+{define link}
+	<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
+		{_$item->label}
+	</a>
+{/define}
+
+{define item}
+	{if $item->isActive() and (!$item->resource or $user->isAllowed($item->resource))}
+		<li n:class="$item->isDropdown() ? open">
+			{include link, item}
+			<ul class="{$subclass}" n:if="$item->isDropdown()">
+				{foreach $item->getItems() as $subitem}
+					{include item, item=>$subitem}
+				{/foreach}
+			</ul>
+		</li>
+	{/if}
+{/define}
+
+<ul class="{$class}" n:if="$items">
+	{foreach $items as $item}
+		{include item, $item}
+	{/foreach}
+</ul>

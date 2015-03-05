@@ -1,0 +1,11 @@
+<ol class="{$class}" n:if="$items" n:inner-foreach="$items as $item">
+	<li n:if="!$iterator->last">
+		<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
+			<i n:if="$item->icon" class="fa fa-fw {$item->icon}"></i>{_$item->label}
+		</a>
+	</li>
+	<li class="active" n:if="$iterator->last">
+		<i n:if="$item->icon" class="fa fa-fw {$item->icon}"></i>
+		{_$item->label}
+	</li>
+</ol>
