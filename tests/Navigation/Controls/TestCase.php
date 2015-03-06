@@ -23,10 +23,10 @@ abstract class TestCase extends \Kollarovic\Navigation\Test\TestCase
 	}
 
 
-	protected function renderControl($options = [])
+	protected function renderControl($options = [], $render = 'render')
 	{
 		ob_start();
-		$this->control->render($options);
+		$this->control->$render($options);
 		$html = ob_get_clean();
 		return DomQuery::fromHtml($html);
 	}

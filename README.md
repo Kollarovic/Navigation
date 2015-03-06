@@ -56,9 +56,7 @@ presenter
 
 
 use Kollarovic\Navigation\ItemsFactory;
-use Kollarovic\Navigation\MenuControl;
-use Kollarovic\Navigation\BreadcrumbControl;
-use Kollarovic\Navigation\PanelControl;
+use Kollarovic\Navigation\NavigationControl;
 use Kollarovic\Navigation\SitemapControl;
 
 
@@ -69,21 +67,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	public $itemsFactory;
 
 
-	protected function createComponentMenu()
+	protected function createComponentNavigation()
 	{
-		return new MenuControl($this->itemsFactory->create('backend'));
-	}
-
-
-	protected function createComponentBreadcrumb()
-	{
-		return new BreadcrumbControl($this->itemsFactory->create('backend'));
-	}
-
-
-	protected function createComponentPanel()
-	{
-		return new PanelControl($this->itemsFactory->create('backend'));
+		return new NavigationControl($this->itemsFactory->create('backend'));
 	}
 
 
@@ -100,11 +86,11 @@ template.latte
 
 ```php
 
-{control menu}
+{control navigation:menu}
 
-{control breadcrumb}
+{control navigation:breadcrumb}
 
-{control panel}
+{control navigation:panel}
 
 {control sitemap}
 
