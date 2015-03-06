@@ -31,6 +31,7 @@ class ItemUrlTest extends TestCase
 			['this', FALSE],
 			['#', TRUE],
 			['#fragment', TRUE],
+			['/page', TRUE],
 			['http://example.com', TRUE],
 		];
 	}
