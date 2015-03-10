@@ -37,9 +37,9 @@ class NavigationControl extends Control
 	}
 
 
-	public function renderTitle()
+	public function renderTitle(array $options = [])
 	{
-		echo $this->rootItem->getCurrentItem();
+		$this['title']->render($options);
 	}
 
 
@@ -58,6 +58,12 @@ class NavigationControl extends Control
 	protected function createComponentPanel()
 	{
 		return new PanelControl($this->rootItem);
+	}
+
+
+	protected function createComponentTitle()
+	{
+		return new TitleControl($this->rootItem);
 	}
 
 }
