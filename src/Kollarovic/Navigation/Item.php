@@ -106,6 +106,19 @@ class Item extends Object implements \ArrayAccess
 
 
 	/**
+	 * @param string $name
+	 * @return Item
+	 */
+	public function getItem($name)
+	{
+		if (!isset($this->items[$name])) {
+			throw new InvalidArgumentException("Item with name '$name' does not exist.");
+		}
+		return $this->items[$name];
+	}
+
+
+	/**
 	 * @return Item|null
 	 */
 	public function getCurrentItem()
@@ -223,10 +236,11 @@ class Item extends Object implements \ArrayAccess
 
 	public function offsetGet($name)
 	{
-		if (!isset($this->items[$name])) {
-			throw new InvalidArgumentException("Item with name '$name' does not exist.");
+		$item = $this;
+		foreach (explode('-', $name) as $key) {
+			$item = $item->getItem($key);
 		}
-		return $this->items[$name];
+		return $item;
 	}
 
 

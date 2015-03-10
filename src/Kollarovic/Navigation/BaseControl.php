@@ -46,9 +46,7 @@ abstract class BaseControl extends Control
 	{
 		$item = $this->rootItem;
 		if ($options['root']) {
-			foreach (explode('-', $options['root']) as $name) {
-				$item = $item[$name];
-			};
+			$item = $item[$options['root']];
 		}
 		return $item;
 	}
