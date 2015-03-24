@@ -15,9 +15,9 @@ class BreadcrumbControl extends BaseControl
 	public function render(array $options = [])
 	{
 		$options += $this->default;
+		$this->extractOptions($options);
 		$item = $this->getItemByOptions($options);
 		$this->template->items = $item->getPath();
-		$this->template->class = $options['class'];
 		$this->template->render();
 	}
 
