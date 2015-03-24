@@ -10,6 +10,9 @@ class MenuControl extends BaseControl
 		'root' => NULL, 
 		'class' => 'nav', 
 		'subclass' => "nav",
+		'activeClass' => "active",
+		'openClass' => "open",
+		'dropdownClass' => "dropdown",
 		'open' => FALSE,
 		'deep' => TRUE,
 	];
