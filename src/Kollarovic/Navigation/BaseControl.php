@@ -52,6 +52,14 @@ abstract class BaseControl extends Control
 	}
 
 
+	protected function extractOptions(array $options)
+	{
+		foreach ($options as $key => $value) {
+			$this->template->$key = $value;
+		}
+	}
+
+
 	protected function attached($presenter)
 	{
 		parent::attached($presenter);
