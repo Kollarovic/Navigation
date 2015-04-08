@@ -18,7 +18,7 @@ config.neon
 
 
 extensions:
-	thumbnail: Kollarovic\Navigation\DI\Extension
+	navigation: Kollarovic\Navigation\DI\Extension
 
 
 navigation:
