@@ -13,6 +13,7 @@ use Nette\Utils\Validators;
  * @method Item setCurrent(boolean $current)
  * @method Item setValue(mixed $value)
  * @method Item setIcon(string $icon)
+ * @method Item setOptions(array $options)
  *
  * @method string getName()
  * @method string getLabel()
