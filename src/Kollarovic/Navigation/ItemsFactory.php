@@ -16,11 +16,13 @@ class ItemsFactory extends Object
 	private $default = [
 		'label' => 'None',
 		'link' => NULL,
+		'linkArgs' => NULL,
 		'icon' => NULL,
 		'active' => TRUE,
 		'value' => NULL,
 		'items' => NULL,
 		'resource' => NULL,
+		'options' => [],
 	];
 
 	/** @var array */
@@ -65,8 +67,10 @@ class ItemsFactory extends Object
 		foreach ($items as $name => $data) {
 			$data += $this->default;
 			$item = $rootItem->addItem($name, $data['label'], $data['link'], $data['icon'], $data['resource']);
+			$item->setLinkArgs($data['linkArgs']);
 			$item->setActive($data['active']);
 			$item->setValue($data['value']);
+			$item->setOptions($data['options']);
 			$this->addItems($item, $data['items']);
 		}
 	}
