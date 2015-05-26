@@ -16,7 +16,7 @@ class ItemsFactory extends Object
 	private $default = [
 		'label' => 'None',
 		'link' => NULL,
-		'linkArgs' => NULL,
+		'linkArgs' => [],
 		'icon' => NULL,
 		'active' => TRUE,
 		'value' => NULL,
