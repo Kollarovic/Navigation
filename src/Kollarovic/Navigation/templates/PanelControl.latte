@@ -1,21 +1,20 @@
 {var $colors = ['aqua', 'green', 'yellow', 'red', 'blue', 'purple', 'teal', 'maroon', 'navy']}
+{var $index=0}
 
-{foreach $items as $item}
-{first 4}<div class="row">{/first}
-{first 9}{var $index=0}{/first}
-<div class="col-lg-3 col-xs-6">
-	<div class="small-box bg-{$colors[$index++]}">
-		<div class="inner">
-			<h3>{$item->value|noescape}&nbsp;</h3>
-			<p>{_$item->label}</p>
+<div class="row" n:inner-foreach="$items as $item">
+	<div n:if="!$item->resource or $user->isAllowed($item->resource)" class="col-lg-3 col-xs-6">
+		{var $index = $index>8 ? 0 : $index}
+		<div class="small-box bg-{$colors[$index++]}">
+			<div class="inner">
+				<h3>{$item->value|noescape}&nbsp;</h3>
+				<p>{_$item->label}</p>
+			</div>
+			<div class="icon">
+				<i class="fa {$item->icon ? $item->icon : fa-file-text-o}"></i>
+			</div>
+			<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}"  class="small-box-footer">
+				{_'Show'} <i class="fa fa-arrow-circle-right"></i>
+			</a>
 		</div>
-		<div class="icon">
-			<i class="fa {$item->icon ? $item->icon : fa-file-text-o}"></i>
-		</div>
-		<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}"  class="small-box-footer">
-			{_'Show'} <i class="fa fa-arrow-circle-right"></i>
-		</a>
 	</div>
 </div>
-{last 4}</div>{/last}
-{/foreach}
