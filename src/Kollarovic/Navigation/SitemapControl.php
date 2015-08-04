@@ -9,7 +9,8 @@ class SitemapControl extends BaseControl
 	private $default = [
 		'root' => NULL, 
 		'class' => 'nav', 
-		'subclass' => "nav", 
+		'subclass' => "nav",
+		'ajax' => FALSE,
 	];
 
 

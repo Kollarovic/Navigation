@@ -1,5 +1,5 @@
 {define link}
-	<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
+	<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
 		{_$item->label}
 	</a>
 {/define}

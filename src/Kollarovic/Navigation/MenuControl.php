@@ -15,6 +15,7 @@ class MenuControl extends BaseControl
 		'dropdownClass' => "dropdown",
 		'open' => FALSE,
 		'deep' => TRUE,
+		'ajax' => FALSE,
 	];
 
 

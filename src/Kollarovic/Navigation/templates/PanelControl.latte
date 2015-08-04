@@ -12,7 +12,7 @@
 			<div class="icon">
 				<i class="fa {$item->icon ? $item->icon : fa-file-text-o}"></i>
 			</div>
-			<a href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}"  class="small-box-footer">
+			<a n:class="$ajax ? ajax,small-box-footer" href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
 				{_'Show'} <i class="fa fa-arrow-circle-right"></i>
 			</a>
 		</div>

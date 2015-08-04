@@ -9,6 +9,7 @@ class BreadcrumbControl extends BaseControl
 	private $default = [
 		'root' => NULL,
 		'class' => 'breadcrumb',
+		'ajax' => FALSE,
 	];
 
 

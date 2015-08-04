@@ -8,12 +8,14 @@ class PanelControl extends BaseControl
 	
 	private $default = [
 		'root' => NULL,
+		'ajax' => FALSE,
 	];
 
 
 	public function render(array $options = [])
 	{
 		$options += $this->default;
+		$this->extractOptions($options);
 		$item = $this->getItemByOptions($options);
 		$this->template->items = $this->itemsInPanel($item->getItems());
 		$this->template->render();
