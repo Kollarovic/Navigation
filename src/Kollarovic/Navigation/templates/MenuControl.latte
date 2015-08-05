@@ -1,8 +1,12 @@
 {var $level = 0}
+
 {define link}
 	<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
 		<i n:if="$item->icon" class="fa fa-fw {$item->icon}"></i>
 		{_$item->label}
+		{if $item->getOption(label)}
+			<small class="label pull-right bg-{$item->getOption(labelColor, red)}">{$item->getOption(label)}</small>
+		{/if}
 	</a>
 {/define}
 
