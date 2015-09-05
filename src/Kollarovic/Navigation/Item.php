@@ -176,11 +176,11 @@ class Item extends Object implements \ArrayAccess
 		$items = [];
 		foreach ($this->getItems(TRUE) as $item) {
 			if ($item->isCurrent() or $item->isOpen()) {
-				$items[$item->link] = $item;
+				$items[$item->link . http_build_query((array)$item->linkArgs)] = $item;
 			}
 		}
 		if ($items) {
-			$items = [$this->link => $this] + $items;
+			$items = [$this->link . http_build_query((array)$item->linkArgs) => $this] + $items;
 		}
 		return $items;
 	}
