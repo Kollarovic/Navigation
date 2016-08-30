@@ -2,7 +2,7 @@
 	"name": "kollarovic/navigation",
 	"description": "Navigation for Nette",
 	"keywords": ["nette", "navigation"],
-	"license": "New BSD",
+	"license": "MIT",
 
 	"authors": [
 		{
