@@ -16,8 +16,8 @@ class MenuControlTest extends TestCase
 
 	public function testRender()
 	{
-		Assert::true($this->control->rootItem['setting']['advanced']['web']->isCurrent());
-		Assert::false($this->control->rootItem['page']->isOpen());
+		Assert::true($this->control->getRootItem()['setting']['advanced']['web']->isCurrent());
+		Assert::false($this->control->getRootItem()['page']->isOpen());
 
 		$dom = $this->renderControl(['class' => 'root-class', 'subclass' => 'sub-class']);
 		Assert::count(6, $dom->find('a'));

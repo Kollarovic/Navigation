@@ -3,31 +3,13 @@
 namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
-use Nette\Object;
 use Nette\Utils\Validators;
 
 
-/**
- * @method Item setLinkArgs(mixed $linkArgs)
- * @method Item setActive(boolean $active)
- * @method Item setCurrent(boolean $current)
- * @method Item setValue(mixed $value)
- * @method Item setIcon(string $icon)
- * @method Item setOptions(array $options)
- *
- * @method string getName()
- * @method string getLabel()
- * @method string getLink()
- * @method mixed getLinkArgs()
- * @method string getIcon()
- * @method string getResource()
- * @method boolean isActive()
- * @method boolean isCurrent()
- */
-class Item extends Object implements \ArrayAccess
+class Item implements \ArrayAccess
 {
 
-	/** @var string */
+    /** @var string */
 	private $name;
 
 	/** @var string */
@@ -224,7 +206,151 @@ class Item extends Object implements \ArrayAccess
 	}
 
 
-	public function __toString()
+    /**
+     * @return mixed
+     */
+    public function getLinkArgs()
+    {
+        return $this->linkArgs;
+    }
+
+
+    /**
+     * @param mixed $linkArgs
+     */
+    public function setLinkArgs($linkArgs)
+    {
+        $this->linkArgs = $linkArgs;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+
+    /**
+     * @param string $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+
+    /**
+     * @param string $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+
+    /**
+     * @param bool $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isCurrent()
+    {
+        return $this->current;
+    }
+
+
+    /**
+     * @param bool $current
+     */
+    public function setCurrent($current)
+    {
+        $this->current = $current;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+
+    /**
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+
+    /**
+     * @param array $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
+
+
+    public function __toString()
 	{
 		return (string)$this->label;
 	}

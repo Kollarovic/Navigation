@@ -26,7 +26,7 @@ class PanelControl extends BaseControl
 	{
 		$itemsInPanel = [];
 		foreach($items as $item) {
-			if ($item->link == '#') {
+			if ($item->getLink() == '#') {
 				$itemsInPanel = array_merge($itemsInPanel, $this->itemsInPanel($item->getItems()));
 			} elseif(!$item->isCurrent() and $item->isActive()) {
 				$itemsInPanel[] = $item;

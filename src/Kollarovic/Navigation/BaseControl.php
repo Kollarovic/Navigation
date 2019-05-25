@@ -4,13 +4,9 @@ namespace Kollarovic\Navigation;
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Presenter;
+use ReflectionClass;
 
 
-/**
- * @method setTemplateFile(string $template)
- * @method string getTemplateFile()
- * @method Item getRootItem()
- */
 abstract class BaseControl extends Control
 {
 
@@ -27,13 +23,44 @@ abstract class BaseControl extends Control
 	}
 
 
+    /**
+     * @return Item
+     */
+    public function getRootItem()
+    {
+        return $this->rootItem;
+    }
+
+
+    /**
+     * @param string $templateFile
+     * @return $this
+     */
+    public function setTemplateFile($templateFile)
+    {
+        $this->templateFile = $templateFile;
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getTemplateFile()
+    {
+        return $this->templateFile;
+    }
+
+
 	protected function createTemplate()
 	{
 		$template = parent::createTemplate();
 		if (!array_key_exists('translate', $template->getLatte()->getFilters())) {
 			$template->addFilter('translate', function($str){return $str;});
 		}
-		$file = $this->templateFile ? $this->templateFile : __DIR__ . "/templates/{$this->reflection->shortName}.latte";
+
+        $reflection = new ReflectionClass($this);
+		$file = $this->templateFile ? $this->templateFile : __DIR__ . "/templates/{$reflection->getShortName()}.latte";
 		$template->setFile($file);
 		return $template;
 	}
@@ -65,7 +92,7 @@ abstract class BaseControl extends Control
 		parent::attached($presenter);
 		if ($presenter instanceof Presenter) {
 			foreach($this->rootItem->getItems(TRUE) as $item) {
-				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->link, $item->linkArgs));
+				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
 			}
 		}
 	}

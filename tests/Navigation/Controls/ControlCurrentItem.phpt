@@ -16,7 +16,7 @@ class ControlCurrentItemTest extends TestCase
 
 	public function testCurrent()
 	{
-		$rootItem = $this->control->rootItem;
+		$rootItem = $this->control->getRootItem();
 		Assert::false($rootItem->isCurrent());
 		Assert::false($rootItem['page']->isCurrent());
 		Assert::false($rootItem['setting']->isCurrent());

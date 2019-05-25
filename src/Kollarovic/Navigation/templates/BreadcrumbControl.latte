@@ -1,11 +1,11 @@
 <ol class="{$class}" n:if="$items" n:inner-foreach="$items as $item">
 	<li n:if="!$iterator->last">
-		<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
-			<i n:if="$item->icon" class="fa fa-fw {$item->icon}"></i>{_$item->label}
+		<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->getLink() : $presenter->link($item->getLink(), $item->getLinkArgs())}">
+			<i n:if="$item->getIcon()" class="fa fa-fw {$item->getIcon()}"></i>{_$item->getLabel()}
 		</a>
 	</li>
 	<li class="active" n:if="$iterator->last">
-		<i n:if="$item->icon" class="fa fa-fw {$item->icon}"></i>
-		{_$item->label}
+		<i n:if="$item->getIcon()" class="fa fa-fw {$item->getIcon()}"></i>
+		{_$item->getLabel()}
 	</li>
 </ol>

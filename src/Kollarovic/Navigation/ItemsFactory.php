@@ -2,11 +2,10 @@
 
 namespace Kollarovic\Navigation;
 
-use Nette\Object;
 use Nette\InvalidArgumentException;
 
 
-class ItemsFactory extends Object
+class ItemsFactory
 {
 
 	/** @var array */

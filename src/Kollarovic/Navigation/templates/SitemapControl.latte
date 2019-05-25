@@ -1,11 +1,11 @@
 {define link}
-	<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->link : $presenter->link($item->link, $item->linkArgs)}">
-		{_$item->label}
+	<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->getLink() : $presenter->link($item->getLink(), $item->getLinkArgs())}">
+		{_$item->getLabel()}
 	</a>
 {/define}
 
 {define item}
-	{if $item->isActive() and (!$item->resource or $user->isAllowed($item->resource))}
+	{if $item->isActive() and (!$item->getResource() or $user->isAllowed($item->getResource()))}
 		<li n:class="$item->isDropdown() ? open">
 			{include link, item}
 			<ul class="{$subclass}" n:if="$item->isDropdown()">
