@@ -169,7 +169,7 @@ class Item extends Object implements \ArrayAccess
 
 
 	/**
-	 * @return Items[]
+	 * @return Item[]
 	 */
 	public function getPath()
 	{
