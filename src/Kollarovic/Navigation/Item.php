@@ -9,7 +9,7 @@ use Nette\Utils\Validators;
 class Item implements \ArrayAccess
 {
 
-    /** @var string */
+	/** @var string */
 	private $name;
 
 	/** @var string */
@@ -206,151 +206,151 @@ class Item implements \ArrayAccess
 	}
 
 
-    /**
-     * @return mixed
-     */
-    public function getLinkArgs()
-    {
-        return $this->linkArgs;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getLinkArgs()
+	{
+		return $this->linkArgs;
+	}
 
 
-    /**
-     * @param mixed $linkArgs
-     */
-    public function setLinkArgs($linkArgs)
-    {
-        $this->linkArgs = $linkArgs;
-    }
+	/**
+	 * @param mixed $linkArgs
+	 */
+	public function setLinkArgs($linkArgs)
+	{
+		$this->linkArgs = $linkArgs;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getIcon()
-    {
-        return $this->icon;
-    }
+	/**
+	 * @return string
+	 */
+	public function getIcon()
+	{
+		return $this->icon;
+	}
 
 
-    /**
-     * @param string $icon
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-    }
+	/**
+	 * @param string $icon
+	 */
+	public function setIcon($icon)
+	{
+		$this->icon = $icon;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getResource()
-    {
-        return $this->resource;
-    }
+	/**
+	 * @return string
+	 */
+	public function getResource()
+	{
+		return $this->resource;
+	}
 
 
-    /**
-     * @param string $resource
-     */
-    public function setResource($resource)
-    {
-        $this->resource = $resource;
-    }
+	/**
+	 * @param string $resource
+	 */
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
 
 
-    /**
-     * @return bool
-     */
-    public function isActive()
-    {
-        return $this->active;
-    }
+	/**
+	 * @return bool
+	 */
+	public function isActive()
+	{
+		return $this->active;
+	}
 
 
-    /**
-     * @param bool $active
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-    }
+	/**
+	 * @param bool $active
+	 */
+	public function setActive($active)
+	{
+		$this->active = $active;
+	}
 
 
-    /**
-     * @return bool
-     */
-    public function isCurrent()
-    {
-        return $this->current;
-    }
+	/**
+	 * @return bool
+	 */
+	public function isCurrent()
+	{
+		return $this->current;
+	}
 
 
-    /**
-     * @param bool $current
-     */
-    public function setCurrent($current)
-    {
-        $this->current = $current;
-    }
+	/**
+	 * @param bool $current
+	 */
+	public function setCurrent($current)
+	{
+		$this->current = $current;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+	/**
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
+	/**
+	 * @return string
+	 */
+	public function getLabel()
+	{
+		return $this->label;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getLink()
-    {
-        return $this->link;
-    }
+	/**
+	 * @return string
+	 */
+	public function getLink()
+	{
+		return $this->link;
+	}
 
 
-    /**
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
+	/**
+	 * @return array
+	 */
+	public function getOptions()
+	{
+		return $this->options;
+	}
 
 
-    /**
-     * @param string $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
+	/**
+	 * @param string $value
+	 */
+	public function setValue($value)
+	{
+		$this->value = $value;
+	}
 
 
-    /**
-     * @param array $options
-     */
-    public function setOptions($options)
-    {
-        $this->options = $options;
-    }
+	/**
+	 * @param array $options
+	 */
+	public function setOptions($options)
+	{
+		$this->options = $options;
+	}
 
 
-    public function __toString()
+	public function __toString()
 	{
 		return (string)$this->label;
 	}

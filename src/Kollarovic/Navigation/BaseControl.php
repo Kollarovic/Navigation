@@ -23,33 +23,33 @@ abstract class BaseControl extends Control
 	}
 
 
-    /**
-     * @return Item
-     */
-    public function getRootItem()
-    {
-        return $this->rootItem;
-    }
+	/**
+	 * @return Item
+	 */
+	public function getRootItem()
+	{
+		return $this->rootItem;
+	}
 
 
-    /**
-     * @param string $templateFile
-     * @return $this
-     */
-    public function setTemplateFile($templateFile)
-    {
-        $this->templateFile = $templateFile;
-        return $this;
-    }
+	/**
+	 * @param string $templateFile
+	 * @return $this
+	 */
+	public function setTemplateFile($templateFile)
+	{
+		$this->templateFile = $templateFile;
+		return $this;
+	}
 
 
-    /**
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        return $this->templateFile;
-    }
+	/**
+	 * @return string
+	 */
+	public function getTemplateFile()
+	{
+		return $this->templateFile;
+	}
 
 
 	protected function createTemplate()
@@ -59,7 +59,7 @@ abstract class BaseControl extends Control
 			$template->addFilter('translate', function($str){return $str;});
 		}
 
-        $reflection = new ReflectionClass($this);
+		$reflection = new ReflectionClass($this);
 		$file = $this->templateFile ? $this->templateFile : __DIR__ . "/templates/{$reflection->getShortName()}.latte";
 		$template->setFile($file);
 		return $template;
