@@ -217,10 +217,12 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param mixed $linkArgs
+	 * @return self
 	 */
 	public function setLinkArgs($linkArgs)
 	{
 		$this->linkArgs = $linkArgs;
+		return $this;
 	}
 
 
@@ -235,10 +237,12 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param string $icon
+	 * @return self
 	 */
 	public function setIcon($icon)
 	{
 		$this->icon = $icon;
+		return $this;
 	}
 
 
@@ -253,15 +257,18 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param string $resource
+	 * @return self
 	 */
 	public function setResource($resource)
 	{
 		$this->resource = $resource;
+		return $this;
 	}
 
 
 	/**
 	 * @return bool
+	 * @return self
 	 */
 	public function isActive()
 	{
@@ -271,10 +278,12 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param bool $active
+	 * @return self
 	 */
 	public function setActive($active)
 	{
 		$this->active = $active;
+		return $this;
 	}
 
 
@@ -289,10 +298,12 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param bool $current
+	 * @return self
 	 */
 	public function setCurrent($current)
 	{
 		$this->current = $current;
+		return $this;
 	}
 
 
@@ -334,19 +345,23 @@ class Item implements \ArrayAccess
 
 	/**
 	 * @param string $value
+	 * @return self
 	 */
 	public function setValue($value)
 	{
 		$this->value = $value;
+		return $this;
 	}
 
 
 	/**
 	 * @param array $options
+	 * @return self
 	 */
 	public function setOptions($options)
 	{
 		$this->options = $options;
+		return $this;
 	}
 
 
