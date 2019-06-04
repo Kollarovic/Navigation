@@ -3,6 +3,7 @@
 namespace Kollarovic\Navigation;
 
 use Nette\Application\UI\Control;
+use Nette\Localization\ITranslator;
 
 
 class NavigationControl extends Control
@@ -12,10 +13,14 @@ class NavigationControl extends Control
 	/** @var Item */
 	private $rootItem;
 
+	/** @var ITranslator */
+	private $translator;
 
-	function __construct(Item $rootItem)
+
+	function __construct(Item $rootItem, ITranslator $translator = null)
 	{
 		$this->rootItem = $rootItem;
+		$this->translator = $translator;
 	}
 
 
@@ -45,25 +50,25 @@ class NavigationControl extends Control
 
 	protected function createComponentMenu()
 	{
-		return new MenuControl($this->rootItem);
+		return new MenuControl($this->rootItem, $this->translator);
 	}
 
 
 	protected function createComponentBreadcrumb()
 	{
-		return new BreadcrumbControl($this->rootItem);
+		return new BreadcrumbControl($this->rootItem, $this->translator);
 	}
 
 
 	protected function createComponentPanel()
 	{
-		return new PanelControl($this->rootItem);
+		return new PanelControl($this->rootItem, $this->translator);
 	}
 
 
 	protected function createComponentTitle()
 	{
-		return new TitleControl($this->rootItem);
+		return new TitleControl($this->rootItem, $this->translator);
 	}
 
 }

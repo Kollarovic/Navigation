@@ -4,6 +4,7 @@ namespace Kollarovic\Navigation;
 
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Presenter;
+use Nette\Localization\ITranslator;
 use ReflectionClass;
 
 
@@ -16,10 +17,14 @@ abstract class BaseControl extends Control
 	/** @var Item */
 	private $rootItem;
 
+	/** @var ITranslator */
+	private $translator;
 
-	function __construct(Item $rootItem)
+
+	function __construct(Item $rootItem, ITranslator $translator = null)
 	{
 		$this->rootItem = $rootItem;
+		$this->translator = $translator;
 	}
 
 
@@ -55,7 +60,10 @@ abstract class BaseControl extends Control
 	protected function createTemplate()
 	{
 		$template = parent::createTemplate();
-		if (!array_key_exists('translate', $template->getLatte()->getFilters())) {
+
+		if ($this->translator) {
+			$template->addFilter('translate', [$this->translator, 'translate']);
+		} else {
 			$template->addFilter('translate', function($str){return $str;});
 		}
 
