@@ -2,7 +2,9 @@
 
 namespace Kollarovic\Navigation;
 
+use Nette\Application\IPresenter;
 use Nette\Application\UI\Control;
+use Nette\Application\UI\ITemplate;
 use Nette\Application\UI\Presenter;
 use Nette\Localization\ITranslator;
 use ReflectionClass;
@@ -25,6 +27,12 @@ abstract class BaseControl extends Control
 	{
 		$this->rootItem = $rootItem;
 		$this->translator = $translator;
+
+		$this->monitor(IPresenter::class, function () {
+			foreach($this->rootItem->getItems(TRUE) as $item) {
+				!$item->isUrl() and $item->setCurrent($this->presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
+			}
+		});
 	}
 
 
@@ -57,7 +65,7 @@ abstract class BaseControl extends Control
 	}
 
 
-	protected function createTemplate()
+	protected function createTemplate(): ITemplate
 	{
 		$template = parent::createTemplate();
 
@@ -91,17 +99,6 @@ abstract class BaseControl extends Control
 	{
 		foreach ($options as $key => $value) {
 			$this->template->$key = $value;
-		}
-	}
-
-
-	protected function attached($presenter)
-	{
-		parent::attached($presenter);
-		if ($presenter instanceof Presenter) {
-			foreach($this->rootItem->getItems(TRUE) as $item) {
-				!$item->isUrl() and $item->setCurrent($presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
-			}
 		}
 	}
 

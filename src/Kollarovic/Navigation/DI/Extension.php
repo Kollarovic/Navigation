@@ -13,7 +13,7 @@ class Extension extends CompilerExtension
 		$config = $this->getConfig();
 		$builder = $this->getContainerBuilder();
 		$builder->addDefinition($this->prefix('itemsFactory'))
-			->setClass('Kollarovic\Navigation\ItemsFactory', [$config]);
+			->setFactory('Kollarovic\Navigation\ItemsFactory', [$config]);
 	}
 
 }

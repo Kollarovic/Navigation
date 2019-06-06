@@ -26,7 +26,7 @@ class MockPresenter extends Presenter
 	];
 
 
-	public function link($destination, $args = array())
+	public function link(string $destination, $args = []): string
 	{
 		if (!array_key_exists($destination, $this->linkToUrl)) {
 			throw new InvalidLinkException("'$destination'");
@@ -36,7 +36,7 @@ class MockPresenter extends Presenter
 	}
 
 
-	public function isLinkCurrent($destination = NULL, $args = array())
+	public function isLinkCurrent(string $destination = null, $args = []): bool
 	{
 		return ($destination == $this->currentDestination);
 	}

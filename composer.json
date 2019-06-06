@@ -12,13 +12,13 @@
 	],
 
 	"require": {
-		"php": ">=5.4.0",
-		"nette/bootstrap": "~2.2",
-		"nette/utils": "~2.2",
-		"nette/application": "~2.2",
-		"nette/security": "~2.2",
-		"nette/robot-loader": "~2.2",
-		"latte/latte": "~2.2"
+		"php": ">=7.1",
+		"nette/application": "^3.0",
+		"nette/bootstrap": "^3.0",
+		"nette/robot-loader": "^3.0",
+		"nette/security": "^3.0",
+		"nette/utils": "^3.0",
+		"latte/latte": "^2.5"
 	},
 
 	"require-dev": {
