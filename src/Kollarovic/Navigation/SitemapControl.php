@@ -1,26 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
+
+use Nette\Bridges\ApplicationLatte\Template;
 
 
 class SitemapControl extends BaseControl
 {
 	
-	private $default = [
-		'root' => NULL, 
-		'class' => 'nav', 
+	protected $options = [
+		'class' => 'nav',
 		'subclass' => "nav",
-		'ajax' => FALSE,
 	];
 
 
-	public function render(array $options = [])
+	protected function prepareTemplate(Template $template, Item $rootItem)
 	{
-		$options += $this->default;
-		$this->extractOptions($options);
-		$item = $this->getItemByOptions($options);
-		$this->template->items = $item->getItems();
-		$this->template->render();
+		$template->items = $rootItem->getItems();
 	}
 
 }

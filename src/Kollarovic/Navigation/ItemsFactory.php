@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
@@ -14,13 +16,13 @@ class ItemsFactory
 	/** @var array */
 	private $default = [
 		'label' => 'None',
-		'link' => NULL,
+		'link' => null,
 		'linkArgs' => [],
-		'icon' => NULL,
-		'active' => TRUE,
-		'value' => NULL,
-		'items' => NULL,
-		'resource' => NULL,
+		'icon' => null,
+		'active' => true,
+		'value' => null,
+		'items' => null,
+		'resource' => null,
 		'options' => [],
 	];
 
@@ -34,11 +36,7 @@ class ItemsFactory
 	}
 
 
-	/**
-	 * @param string $name
-	 * @return Item
-	 */
-	public function create($name)
+	public function create(string $name): Item
 	{
 		if (isset($this->items[$name])) {
 			return $this->items[$name];
@@ -48,7 +46,7 @@ class ItemsFactory
 			throw new InvalidArgumentException("Navigation '$name' is not defined");
 		}
 
-		$config = (array)$this->config[$name] + $this->default;
+		$config = (array) $this->config[$name] + $this->default;
 		$rootItem = new Item($config['label'], $config['link'], $config['icon'], $config['resource']);
 		$this->addItems($rootItem, $config['items']);
 

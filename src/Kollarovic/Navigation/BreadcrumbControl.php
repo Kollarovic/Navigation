@@ -1,25 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
+
+use Nette\Bridges\ApplicationLatte\Template;
 
 
 class BreadcrumbControl extends BaseControl
 {
-	
-	private $default = [
-		'root' => NULL,
+
+	protected $options = [
 		'class' => 'breadcrumb',
-		'ajax' => FALSE,
 	];
 
 
-	public function render(array $options = [])
+	protected function prepareTemplate(Template $template, Item $rootItem)
 	{
-		$options += $this->default;
-		$this->extractOptions($options);
-		$item = $this->getItemByOptions($options);
-		$this->template->items = $item->getPath();
-		$this->template->render();
+		$template->items = $rootItem->getPath();
 	}
 
 }

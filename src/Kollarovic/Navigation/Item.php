@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
 use Nette\Utils\Validators;
+use ArrayAccess;
 
 
-class Item implements \ArrayAccess
+class Item implements ArrayAccess
 {
 
 	/** @var string */
@@ -21,20 +24,20 @@ class Item implements \ArrayAccess
 	/** @var mixed */
 	private $linkArgs = [];
 
-	/** @var string */
+	/** @var string|null */
 	private $icon;
 
-	/** @var string */
+	/** @var string|null */
 	private $resource;
 
 	/** @var string */
 	private $value;
 
 	/** @var boolean */
-	private $active = TRUE;
+	private $active = true;
 
 	/** @var boolean */
-	private $current = FALSE;
+	private $current = false;
 
 	/** @var array */
 	private $items = [];
@@ -43,30 +46,16 @@ class Item implements \ArrayAccess
 	private $options = [];
 
 
-	/**
-	 * @param string $label
-	 * @param string $link
-	 * @param string $icon
-	 * @param string $resource
-	 */
-	public function __construct($label, $link, $icon = NULL, $resource = NULL)
+	public function __construct(string $label, ?string $link, ?string $icon = null, ?string $resource = null)
 	{
 		$this->label = $label;
+		$this->link = $link ? $link : '#';
 		$this->icon = $icon;
 		$this->resource = $resource;
-		$this->link = $link ? $link : '#';
 	}
 
 
-	/**
-	 * @param string $name
-	 * @param string $label
-	 * @param string $link
-	 * @param string $icon
-	 * @param string $resource
-	 * @return Item
-	 */
-	public function addItem($name, $label, $link, $icon = NULL, $resource = NULL)
+	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): Item
 	{
 		$item = new Item($label, $link, $icon, $resource);
 		return $this[$name] = $item;
@@ -77,23 +66,19 @@ class Item implements \ArrayAccess
 	 * @param bool $deep
 	 * @return Item[]
 	 */
-	public function getItems($deep = FALSE)
+	public function getItems(bool $deep = false)
 	{
 		$items = array_values($this->items);
 		if ($deep) {
 			foreach($this->items as $item) {
-				$items = array_merge($items, $item->getItems(TRUE));
+				$items = array_merge($items, $item->getItems(true));
 			}
 		}
 		return $items;
 	}
 
 
-	/**
-	 * @param string $name
-	 * @return Item
-	 */
-	public function getItem($name)
+	public function getItem(string $name): Item
 	{
 		if (!isset($this->items[$name])) {
 			throw new InvalidArgumentException("Item with name '$name' does not exist.");
@@ -102,49 +87,46 @@ class Item implements \ArrayAccess
 	}
 
 
-	/**
-	 * @return Item|null
-	 */
-	public function getCurrentItem()
+	public function getCurrentItem(): ?Item
 	{
 		if ($this->isCurrent()) {
 			return $this;
 		}
-		foreach($this->getItems(TRUE) as $item) {
+		foreach($this->getItems(true) as $item) {
 			if ($item->isCurrent()) {
 				return $item;
 			}
 		}
-		return NULL;
+		return null;
 	}
 
 
-	public function isOpen()
+	public function isOpen(): bool
 	{
 		if ($this->isCurrent()) {
-			return TRUE;
+			return true;
 		}
 		foreach ($this->getItems() as $item) {
 			if ($item->isCurrent() or $item->isOpen()) {
-				return TRUE;
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 
-	public function isDropdown()
+	public function isDropdown(): bool
 	{
 		foreach ($this->getItems() as $item) {
 			if ($item->isActive()) {
-				return TRUE;
+				return true;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 
-	public function isUrl()
+	public function isUrl(): bool
 	{
 		return (Validators::isUrl($this->link) or preg_match('~^/[^/]~', $this->link) or $this->link[0] == '#');
 	}
@@ -156,13 +138,13 @@ class Item implements \ArrayAccess
 	public function getPath()
 	{
 		$items = [];
-		foreach ($this->getItems(TRUE) as $item) {
+		foreach ($this->getItems(true) as $item) {
 			if ($item->isCurrent() or $item->isOpen()) {
 				$items[$item->link . http_build_query((array)$item->linkArgs)] = $item;
 			}
 		}
 		if ($items) {
-			$items = [$this->link . http_build_query((array)$item->linkArgs) => $this] + $items;
+			$items = [$this->link . http_build_query((array)$this->linkArgs) => $this] + $items;
 		}
 		return $items;
 	}
@@ -174,29 +156,20 @@ class Item implements \ArrayAccess
 	}
 
 
-	/**
-	 * @param string $name
-	 * @param mixed $value
-	 * @return self
-	 */
-	public function setOption($name, $value)
+	public function setOption(string $name, $value): self
 	{
 		$this->options[$name] = $value;
 		return $this;
 	}
 
 
-	/**
-	 * @param string $name
-	 * @return mixed
-	 */
-	public function getOption($name, $default = NULL)
+	public function getOption(string $name, $default = null)
 	{
 		return isset($this->options[$name]) ? $this->options[$name] : $default;
 	}
 
 
-	public function setName($name)
+	public function setName(string $name)
 	{
 		if (!preg_match('~^[a-zA-Z0-9_]+~', $name)) {
 			throw new InvalidArgumentException("Name must be non-empty alphanumeric string, '$name' given.");
@@ -206,159 +179,103 @@ class Item implements \ArrayAccess
 	}
 
 
-	/**
-	 * @return mixed
-	 */
 	public function getLinkArgs()
 	{
 		return $this->linkArgs;
 	}
 
 
-	/**
-	 * @param mixed $linkArgs
-	 * @return self
-	 */
-	public function setLinkArgs($linkArgs)
+	public function setLinkArgs($linkArgs): self
 	{
 		$this->linkArgs = $linkArgs;
 		return $this;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getIcon()
+	public function getIcon(): ?string
 	{
 		return $this->icon;
 	}
 
 
-	/**
-	 * @param string $icon
-	 * @return self
-	 */
-	public function setIcon($icon)
+	public function setIcon(string $icon): self
 	{
 		$this->icon = $icon;
 		return $this;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getResource()
+	public function getResource(): ?string
 	{
 		return $this->resource;
 	}
 
 
-	/**
-	 * @param string $resource
-	 * @return self
-	 */
-	public function setResource($resource)
+	public function setResource(string $resource): self
 	{
 		$this->resource = $resource;
 		return $this;
 	}
 
 
-	/**
-	 * @return bool
-	 * @return self
-	 */
-	public function isActive()
+	public function isActive(): bool
 	{
 		return $this->active;
 	}
 
 
-	/**
-	 * @param bool $active
-	 * @return self
-	 */
-	public function setActive($active)
+	public function setActive(bool $active): self
 	{
 		$this->active = $active;
 		return $this;
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	public function isCurrent()
+	public function isCurrent(): bool
 	{
 		return $this->current;
 	}
 
 
-	/**
-	 * @param bool $current
-	 * @return self
-	 */
-	public function setCurrent($current)
+	public function setCurrent(bool $current): self
 	{
 		$this->current = $current;
 		return $this;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getName()
+	public function getName(): string
 	{
 		return $this->name;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getLabel()
+	public function getLabel(): string
 	{
 		return $this->label;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getLink()
+	public function getLink(): string
 	{
 		return $this->link;
 	}
 
 
-	/**
-	 * @return array
-	 */
-	public function getOptions()
+	public function getOptions(): array
 	{
 		return $this->options;
 	}
 
 
-	/**
-	 * @param string $value
-	 * @return self
-	 */
-	public function setValue($value)
+	public function setValue($value): self
 	{
 		$this->value = $value;
 		return $this;
 	}
 
 
-	/**
-	 * @param array $options
-	 * @return self
-	 */
-	public function setOptions($options)
+	public function setOptions(array $options): self
 	{
 		$this->options = $options;
 		return $this;
@@ -370,6 +287,9 @@ class Item implements \ArrayAccess
 		return (string)$this->label;
 	}
 
+	/********************************************************************************
+	 *                                  ArrayAccess                                 *
+	 ********************************************************************************/
 
 	public function offsetExists($offset)
 	{

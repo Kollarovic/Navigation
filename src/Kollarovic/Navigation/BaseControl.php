@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
 
 use Nette\Application\IPresenter;
 use Nette\Application\UI\Control;
-use Nette\Application\UI\ITemplate;
-use Nette\Application\UI\Presenter;
+use Nette\Bridges\ApplicationLatte\Template;
 use Nette\Localization\ITranslator;
+use Nette\UnexpectedValueException;
 use ReflectionClass;
 
 
@@ -19,8 +21,11 @@ abstract class BaseControl extends Control
 	/** @var Item */
 	private $rootItem;
 
-	/** @var ITranslator */
+	/** @var ITranslator|null */
 	private $translator;
+
+	/** @var array */
+	protected $options = [];
 
 
 	function __construct(Item $rootItem, ITranslator $translator = null)
@@ -29,48 +34,57 @@ abstract class BaseControl extends Control
 		$this->translator = $translator;
 
 		$this->monitor(IPresenter::class, function () {
-			foreach($this->rootItem->getItems(TRUE) as $item) {
-				!$item->isUrl() and $item->setCurrent($this->presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
+			foreach($this->rootItem->getItems(true) as $item) {
+				if (!$item->isUrl()) {
+					$item->setCurrent($this->presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
+				}
 			}
 		});
 	}
 
 
-	/**
-	 * @return Item
-	 */
-	public function getRootItem()
+	public function getOptions(): array
+	{
+		return $this->options;
+	}
+
+
+	public function setOptions(array $options): self
+	{
+		$this->options = $options;
+		return $this;
+	}
+
+
+	public function getRootItem(): Item
 	{
 		return $this->rootItem;
 	}
 
 
-	/**
-	 * @param string $templateFile
-	 * @return $this
-	 */
-	public function setTemplateFile($templateFile)
+	public function getTemplateFile(): string
+	{
+		return $this->templateFile;
+	}
+
+
+	public function setTemplateFile(string $templateFile): self
 	{
 		$this->templateFile = $templateFile;
 		return $this;
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function getTemplateFile()
+	public function render(array $options = []): void
 	{
-		return $this->templateFile;
-	}
+		$template = $this->getTemplate();
 
-
-	protected function createTemplate(): ITemplate
-	{
-		$template = parent::createTemplate();
+		if (!$template instanceof Template) {
+			throw new UnexpectedValueException();
+		}
 
 		if ($this->translator) {
-			$template->addFilter('translate', [$this->translator, 'translate']);
+			$template->setTranslator($this->translator);
 		} else {
 			$template->addFilter('translate', function($str){return $str;});
 		}
@@ -78,28 +92,30 @@ abstract class BaseControl extends Control
 		$reflection = new ReflectionClass($this);
 		$file = $this->templateFile ? $this->templateFile : __DIR__ . "/templates/{$reflection->getShortName()}.latte";
 		$template->setFile($file);
-		return $template;
-	}
+		$template->ajax = false;
 
+		$options += $this->options;
 
-	public abstract function render(array $options = []);
-
-
-	protected function getItemByOptions(array $options)
-	{
-		$item = $this->rootItem;
-		if ($options['root']) {
-			$item = $item[$options['root']];
-		}
-		return $item;
-	}
-
-
-	protected function extractOptions(array $options)
-	{
 		foreach ($options as $key => $value) {
 			$this->template->$key = $value;
 		}
+
+		$rootItem = $this->getRootItemByOptions($options);
+		$this->prepareTemplate($template, $rootItem);
+		$template->render();
+	}
+
+
+	protected abstract function prepareTemplate(Template $template, Item $rootItem);
+
+
+	private function getRootItemByOptions(array $options)
+	{
+		$item = $this->rootItem;
+		if (!empty($options['root'])) {
+			$item = $item[$options['root']];
+		}
+		return $item;
 	}
 
 }

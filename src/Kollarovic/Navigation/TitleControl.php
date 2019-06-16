@@ -1,23 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
+
+use Nette\Bridges\ApplicationLatte\Template;
 
 
 class TitleControl extends BaseControl
 {
-	
-	private $default = [
-		'root' => NULL,
-	];
 
-
-	public function render(array $options = [])
+	protected function prepareTemplate(Template $template, Item $rootItem)
 	{
-		$options += $this->default;
-		$this->extractOptions($options);
-		$item = $this->getItemByOptions($options);
-		$this->template->item = $item->getCurrentItem();
-		$this->template->render();
+		$template->item = $rootItem->getCurrentItem();
 	}
 
 }

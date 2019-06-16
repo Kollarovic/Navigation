@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
 
 use Nette\Application\UI\Control;
@@ -9,11 +11,10 @@ use Nette\Localization\ITranslator;
 class NavigationControl extends Control
 {
 
-
 	/** @var Item */
 	private $rootItem;
 
-	/** @var ITranslator */
+	/** @var ITranslator|null */
 	private $translator;
 
 
@@ -24,49 +25,49 @@ class NavigationControl extends Control
 	}
 
 
-	public function renderMenu(array $options = [])
+	public function renderMenu(array $options = []): void
 	{
 		$this['menu']->render($options);
 	}
 
 
-	public function renderBreadcrumb(array $options = [])
+	public function renderBreadcrumb(array $options = []): void
 	{
 		$this['breadcrumb']->render($options);
 	}
 
 
-	public function renderPanel(array $options = [])
+	public function renderPanel(array $options = []): void
 	{
 		$this['panel']->render($options);
 	}
 
 
-	public function renderTitle(array $options = [])
+	public function renderTitle(array $options = []): void
 	{
 		$this['title']->render($options);
 	}
 
 
-	protected function createComponentMenu()
+	protected function createComponentMenu(): MenuControl
 	{
 		return new MenuControl($this->rootItem, $this->translator);
 	}
 
 
-	protected function createComponentBreadcrumb()
+	protected function createComponentBreadcrumb(): BreadcrumbControl
 	{
 		return new BreadcrumbControl($this->rootItem, $this->translator);
 	}
 
 
-	protected function createComponentPanel()
+	protected function createComponentPanel(): PanelControl
 	{
 		return new PanelControl($this->rootItem, $this->translator);
 	}
 
 
-	protected function createComponentTitle()
+	protected function createComponentTitle(): TitleControl
 	{
 		return new TitleControl($this->rootItem, $this->translator);
 	}

@@ -20,7 +20,7 @@
 	{if $item->isActive() and (!$item->getResource() or $user->isAllowed($item->getResource()))}
 		<li n:class="$item->isCurrent() ? $activeClass, $item->isOpen() ? $openClass, $item->isDropdown() ? $dropdownClass">
 			{include link, item}
-			<ul class="{$subclass}" n:if="$item->isDropdown() and ($deep>$level or $deep===TRUE) and ($item->isCurrent() or $item->isOpen() or $open)">
+			<ul class="{$subclass}" n:if="$item->isDropdown() and ($deep>$level or $deep===false) and ($item->isCurrent() or $item->isOpen() or $open)">
 				{var $level=$level+1}
 				{foreach $item->getItems() as $subitem}
 					{include item, item=>$subitem}

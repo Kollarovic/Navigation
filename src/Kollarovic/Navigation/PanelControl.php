@@ -1,27 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation;
+
+use Nette\Bridges\ApplicationLatte\Template;
 
 
 class PanelControl extends BaseControl
 {
-	
-	private $default = [
-		'root' => NULL,
-		'ajax' => FALSE,
-	];
 
 
-	public function render(array $options = [])
+	protected function prepareTemplate(Template $template, Item $rootItem)
 	{
-		$options += $this->default;
-		$this->extractOptions($options);
-		$item = $this->getItemByOptions($options);
-		$this->template->items = $this->itemsInPanel($item->getItems());
-		$this->template->render();
+		$template->items = $this->itemsInPanel($rootItem->getItems());
 	}
 
 
+	/**
+	 * @param Item[] $items
+	 * @return Item[]
+	 */
 	private function itemsInPanel($items)
 	{
 		$itemsInPanel = [];
