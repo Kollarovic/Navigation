@@ -26,7 +26,6 @@ class NavigationControlTest extends TestCase
 		Assert::count(2, $dom->find('a'));
 
 		$dom = $this->renderControl([], 'renderTitle');
-		echo($dom);
 		Assert::contains('Web', (string)$dom->body);
 	}
 
