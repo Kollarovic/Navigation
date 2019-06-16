@@ -3,9 +3,15 @@
 {define link}
 	<a n:class="$ajax ? ajax" href="{$item->isUrl() ? $item->getLink() : $presenter->link($item->getLink(), $item->getLinkArgs())}">
 		<i n:if="$item->getIcon()" class="fa fa-fw {$item->getIcon()}"></i>
-		{_$item->getLabel()}
+		<span>{_$item->getLabel()}</span>
 		{if $item->getOption(label)}
-			<small class="label pull-right bg-{$item->getOption(labelColor, red)}">{$item->getOption(label)}</small>
+			<span class="pull-right-container">
+				<span class="label pull-right bg-{$item->getOption(labelColor, red)}">{$item->getOption(label)}</span>
+            </span>
+		{elseif $item->isDropdown()}
+			<span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
 		{/if}
 	</a>
 {/define}
@@ -24,7 +30,7 @@
 	{/if}
 {/define}
 
-<ul class="{$class}" n:if="$items" role="menu">
+<ul class="{$class}" n:if="$items" data-widget="tree">
 	{foreach $items as $item}
 		{include item, $item}
 	{/foreach}
