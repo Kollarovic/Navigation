@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class MenuControlTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\MenuControl';
 
 
@@ -33,11 +32,11 @@ class MenuControlTest extends TestCase
 
 	public function testMenuOpen()
 	{
-		$dom = $this->renderControl(['open' => TRUE]);
+		$dom = $this->renderControl(['open' => true]);
 		Assert::count(7, $dom->find('a'));
 		Assert::true($dom->has('ul ul a[href="/page/list"]'));
 
-		$dom = $this->renderControl(['open' => FALSE]);
+		$dom = $this->renderControl(['open' => false]);
 		Assert::count(6, $dom->find('a'));
 		Assert::false($dom->has('ul ul a[href="/page/list"]'));
 	}
@@ -45,12 +44,12 @@ class MenuControlTest extends TestCase
 
 	public function testMenuDeep()
 	{
-		$dom = $this->renderControl(['deep' => TRUE]);
+		$dom = $this->renderControl(['deep' => true]);
 		Assert::count(6, $dom->find('a'));
 		Assert::true($dom->has('ul ul a[href="/setting/advanced"]'));
 		Assert::true($dom->has('ul ul ul a[href="/setting/web"]'));
 
-		$dom = $this->renderControl(['deep' => FALSE]);
+		$dom = $this->renderControl(['deep' => false]);
 		Assert::count(2, $dom->find('a'));
 		Assert::false($dom->has('ul ul a[href="/setting/advanced"]'));
 		Assert::false($dom->has('ul ul ul a[href="/setting/web"]'));
@@ -69,7 +68,7 @@ class MenuControlTest extends TestCase
 
 	public function testRootItem()
 	{
-		$dom = $this->renderControl(['root' => NULL]);
+		$dom = $this->renderControl(['root' => null]);
 		Assert::count(6, $dom->find('a'));
 		Assert::true($dom->has('ul ul a[href="/setting/base"]'));
 
@@ -87,15 +86,14 @@ class MenuControlTest extends TestCase
 
 	public function tesActiveItem()
 	{
-		$this->control['root']['setting']['base']->setActive(FALSE);
+		$this->control['root']['setting']['base']->setActive(false);
 		$dom = $this->renderControl();
 		Assert::false($dom->has('a[href="/setting/base"]'));
 
-		$this->control['root']['setting']['base']->setActive(TRUE);
+		$this->control['root']['setting']['base']->setActive(true);
 		$dom = $this->renderControl();
 		Assert::true($dom->has('a[href="/setting/base"]'));
 	}
-
 }
 
 

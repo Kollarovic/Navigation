@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class SitemapControlTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\SitemapControl';
 
 
@@ -24,7 +23,6 @@ class SitemapControlTest extends TestCase
 		Assert::true($dom->has('a[href="/setting/default"]'));
 		Assert::true($dom->has('ul ul a[href="/setting/base"]'));
 	}
-
 }
 
 

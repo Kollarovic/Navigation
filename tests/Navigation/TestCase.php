@@ -1,4 +1,5 @@
-<?
+<?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -8,12 +9,10 @@ use Nette\Configurator;
 
 abstract class TestCase extends \Tester\TestCase
 {
-
-
 	protected function createContainer()
 	{
 		$configurator = new Configurator();
-		$configurator->setDebugMode(FALSE);
+		$configurator->setDebugMode(false);
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/../config.neon');
 		return $configurator->createContainer();
@@ -35,5 +34,4 @@ abstract class TestCase extends \Tester\TestCase
 
 		return $rootItem;
 	}
-
 }

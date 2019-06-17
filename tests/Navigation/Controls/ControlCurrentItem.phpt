@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class ControlCurrentItemTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\MenuControl';
 
 
@@ -25,7 +24,6 @@ class ControlCurrentItemTest extends TestCase
 		Assert::true($rootItem['setting']['advanced']['web']->isCurrent());
 		Assert::false($rootItem['setting']['advanced']['mail']->isCurrent());
 	}
-
 }
 
 

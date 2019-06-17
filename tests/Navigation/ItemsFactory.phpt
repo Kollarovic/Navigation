@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -26,7 +27,7 @@ class ItemsFactoryTest extends TestCase
 	public function testCreateItems()
 	{
 		$rootItem = $this->itemsFactory->create('backend');
-		Assert::count(6, $rootItem->getItems(TRUE));
+		Assert::count(6, $rootItem->getItems(true));
 		Assert::same('Homepage', $rootItem->getLabel());
 		Assert::same('Homepage:default', $rootItem->getLink());
 
@@ -48,7 +49,6 @@ class ItemsFactoryTest extends TestCase
 	{
 		$this->itemsFactory->create('undefined');
 	}
-
 }
 
 

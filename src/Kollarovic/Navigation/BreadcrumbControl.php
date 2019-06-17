@@ -6,10 +6,8 @@ namespace Kollarovic\Navigation;
 
 use Nette\Bridges\ApplicationLatte\Template;
 
-
 class BreadcrumbControl extends BaseControl
 {
-
 	protected $options = [
 		'class' => 'breadcrumb',
 	];
@@ -19,5 +17,4 @@ class BreadcrumbControl extends BaseControl
 	{
 		$template->items = $rootItem->getPath();
 	}
-
 }

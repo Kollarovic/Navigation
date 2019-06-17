@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class NavigationControlTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\NavigationControl';
 
 
@@ -26,9 +25,8 @@ class NavigationControlTest extends TestCase
 		Assert::count(2, $dom->find('a'));
 
 		$dom = $this->renderControl([], 'renderTitle');
-		Assert::contains('Web', (string)$dom->body);
+		Assert::contains('Web', (string) $dom->body);
 	}
-
 }
 
 

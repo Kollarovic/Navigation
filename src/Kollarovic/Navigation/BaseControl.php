@@ -11,9 +11,11 @@ use Nette\Localization\ITranslator;
 use Nette\UnexpectedValueException;
 use ReflectionClass;
 
-
 abstract class BaseControl extends Control
 {
+
+	/** @var array */
+	protected $options = [];
 
 	/** @var string */
 	private $templateFile;
@@ -24,17 +26,14 @@ abstract class BaseControl extends Control
 	/** @var ITranslator|null */
 	private $translator;
 
-	/** @var array */
-	protected $options = [];
 
-
-	function __construct(Item $rootItem, ITranslator $translator = null)
+	public function __construct(Item $rootItem, ITranslator $translator = null)
 	{
 		$this->rootItem = $rootItem;
 		$this->translator = $translator;
 
 		$this->monitor(IPresenter::class, function () {
-			foreach($this->rootItem->getItems(true) as $item) {
+			foreach ($this->rootItem->getItems(true) as $item) {
 				if (!$item->isUrl()) {
 					$item->setCurrent($this->presenter->isLinkCurrent($item->getLink(), $item->getLinkArgs()));
 				}
@@ -86,11 +85,13 @@ abstract class BaseControl extends Control
 		if ($this->translator) {
 			$template->setTranslator($this->translator);
 		} else {
-			$template->addFilter('translate', function($str){return $str;});
+			$template->addFilter('translate', function ($str) {
+				return $str;
+			});
 		}
 
 		$reflection = new ReflectionClass($this);
-		$file = $this->templateFile ? $this->templateFile : __DIR__ . "/templates/{$reflection->getShortName()}.latte";
+		$file = $this->templateFile ?: __DIR__ . "/templates/{$reflection->getShortName()}.latte";
 		$template->setFile($file);
 		$template->ajax = false;
 
@@ -106,7 +107,7 @@ abstract class BaseControl extends Control
 	}
 
 
-	protected abstract function prepareTemplate(Template $template, Item $rootItem);
+	abstract protected function prepareTemplate(Template $template, Item $rootItem);
 
 
 	private function getRootItemByOptions(array $options)
@@ -117,5 +118,4 @@ abstract class BaseControl extends Control
 		}
 		return $item;
 	}
-
 }

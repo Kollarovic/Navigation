@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Kollarovic\Navigation;
 
+use ArrayAccess;
 use Nette\InvalidArgumentException;
 use Nette\Utils\Validators;
-use ArrayAccess;
-
 
 class Item implements ArrayAccess
 {
@@ -33,10 +32,10 @@ class Item implements ArrayAccess
 	/** @var string */
 	private $value;
 
-	/** @var boolean */
+	/** @var bool */
 	private $active = true;
 
-	/** @var boolean */
+	/** @var bool */
 	private $current = false;
 
 	/** @var array */
@@ -49,15 +48,15 @@ class Item implements ArrayAccess
 	public function __construct(string $label, ?string $link, ?string $icon = null, ?string $resource = null)
 	{
 		$this->label = $label;
-		$this->link = $link ? $link : '#';
+		$this->link = $link ?: '#';
 		$this->icon = $icon;
 		$this->resource = $resource;
 	}
 
 
-	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): Item
+	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): self
 	{
-		$item = new Item($label, $link, $icon, $resource);
+		$item = new self($label, $link, $icon, $resource);
 		return $this[$name] = $item;
 	}
 
@@ -70,7 +69,7 @@ class Item implements ArrayAccess
 	{
 		$items = array_values($this->items);
 		if ($deep) {
-			foreach($this->items as $item) {
+			foreach ($this->items as $item) {
 				$items = array_merge($items, $item->getItems(true));
 			}
 		}
@@ -78,7 +77,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getItem(string $name): Item
+	public function getItem(string $name): self
 	{
 		if (!isset($this->items[$name])) {
 			throw new InvalidArgumentException("Item with name '$name' does not exist.");
@@ -87,12 +86,12 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getCurrentItem(): ?Item
+	public function getCurrentItem(): ?self
 	{
 		if ($this->isCurrent()) {
 			return $this;
 		}
-		foreach($this->getItems(true) as $item) {
+		foreach ($this->getItems(true) as $item) {
 			if ($item->isCurrent()) {
 				return $item;
 			}
@@ -128,7 +127,7 @@ class Item implements ArrayAccess
 
 	public function isUrl(): bool
 	{
-		return (Validators::isUrl($this->link) or preg_match('~^/[^/]~', $this->link) or $this->link[0] == '#');
+		return Validators::isUrl($this->link) or preg_match('~^/[^/]~', $this->link) or $this->link[0] == '#';
 	}
 
 
@@ -140,11 +139,11 @@ class Item implements ArrayAccess
 		$items = [];
 		foreach ($this->getItems(true) as $item) {
 			if ($item->isCurrent() or $item->isOpen()) {
-				$items[$item->link . http_build_query((array)$item->linkArgs)] = $item;
+				$items[$item->link . http_build_query((array) $item->linkArgs)] = $item;
 			}
 		}
 		if ($items) {
-			$items = [$this->link . http_build_query((array)$this->linkArgs) => $this] + $items;
+			$items = [$this->link . http_build_query((array) $this->linkArgs) => $this] + $items;
 		}
 		return $items;
 	}
@@ -284,12 +283,14 @@ class Item implements ArrayAccess
 
 	public function __toString()
 	{
-		return (string)$this->label;
+		return (string) $this->label;
 	}
+
 
 	/********************************************************************************
 	 *                                  ArrayAccess                                 *
 	 ********************************************************************************/
+
 
 	public function offsetExists($offset)
 	{
@@ -309,7 +310,7 @@ class Item implements ArrayAccess
 
 	public function offsetSet($name, $item)
 	{
-		if (!$item instanceof Item) {
+		if (!$item instanceof self) {
 			throw new InvalidArgumentException(sprintf('Value must be %s, %s given.', get_called_class(), gettype($item)));
 		}
 		$item->setName($name);
@@ -321,5 +322,4 @@ class Item implements ArrayAccess
 	{
 		unset($this->items[$offset]);
 	}
-
 }

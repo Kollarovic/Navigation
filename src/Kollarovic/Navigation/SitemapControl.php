@@ -6,13 +6,11 @@ namespace Kollarovic\Navigation;
 
 use Nette\Bridges\ApplicationLatte\Template;
 
-
 class SitemapControl extends BaseControl
 {
-	
 	protected $options = [
 		'class' => 'nav',
-		'subclass' => "nav",
+		'subclass' => 'nav',
 	];
 
 
@@ -20,5 +18,4 @@ class SitemapControl extends BaseControl
 	{
 		$template->items = $rootItem->getItems();
 	}
-
 }

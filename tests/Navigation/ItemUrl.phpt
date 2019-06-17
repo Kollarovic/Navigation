@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -25,17 +26,16 @@ class ItemUrlTest extends TestCase
 	protected function getUrlData()
 	{
 		return [
-			['Homepage:default', FALSE],
-			['//Homepage:default', FALSE],
-			['default', FALSE],
-			['this', FALSE],
-			['#', TRUE],
-			['#fragment', TRUE],
-			['/page', TRUE],
-			['http://example.com', TRUE],
+			['Homepage:default', false],
+			['//Homepage:default', false],
+			['default', false],
+			['this', false],
+			['#', true],
+			['#fragment', true],
+			['/page', true],
+			['http://example.com', true],
 		];
 	}
-
 }
 
 

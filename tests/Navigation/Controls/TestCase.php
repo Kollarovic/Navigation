@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -43,5 +44,4 @@ abstract class TestCase extends \Kollarovic\Navigation\Test\TestCase
 		$presenter->addComponent($control, 'control');
 		return $control;
 	}
-
 }

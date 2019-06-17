@@ -6,16 +6,14 @@ namespace Kollarovic\Navigation;
 
 use Nette\Bridges\ApplicationLatte\Template;
 
-
 class MenuControl extends BaseControl
 {
-	
 	protected $options = [
 		'class' => 'nav',
-		'subclass' => "nav",
-		'activeClass' => "active",
-		'openClass' => "open",
-		'dropdownClass' => "dropdown",
+		'subclass' => 'nav',
+		'activeClass' => 'active',
+		'openClass' => 'open',
+		'dropdownClass' => 'dropdown',
 		'open' => false,
 		'deep' => true,
 	];
@@ -25,5 +23,4 @@ class MenuControl extends BaseControl
 	{
 		$template->items = $rootItem->getItems();
 	}
-
 }

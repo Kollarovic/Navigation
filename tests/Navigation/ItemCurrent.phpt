@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -9,13 +10,13 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class ItemCurrent extends TestCase
 {
-
 	private $rootItem;
+
 
 	protected function setUp()
 	{
 		$this->rootItem = $this->createItems();
-		$this->rootItem['setting']['advanced']['web']->setCurrent(TRUE);
+		$this->rootItem['setting']['advanced']['web']->setCurrent(true);
 	}
 
 
@@ -55,7 +56,6 @@ class ItemCurrent extends TestCase
 		$path = [$rootItem, $rootItem['setting'], $rootItem['setting']['advanced'], $rootItem['setting']['advanced']['web']];
 		Assert::same($path, array_values($rootItem->getPath()));
 	}
-
 }
 
 

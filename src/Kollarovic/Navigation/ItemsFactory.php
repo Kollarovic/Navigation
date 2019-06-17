@@ -6,7 +6,6 @@ namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
 
-
 class ItemsFactory
 {
 
@@ -30,7 +29,7 @@ class ItemsFactory
 	private $items = [];
 
 
-	function __construct(array $config)
+	public function __construct(array $config)
 	{
 		$this->config = $config;
 	}
@@ -71,5 +70,4 @@ class ItemsFactory
 			$this->addItems($item, $data['items']);
 		}
 	}
-		
 }

@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
-use Nette\Application\UI\Presenter;
 use Nette\Application\UI\InvalidLinkException;
+use Nette\Application\UI\Presenter;
 
 
 class MockPresenter extends Presenter
 {
-
 	private $currentDestination = 'Setting:web';
 
 	private $linkToUrl = [
@@ -38,7 +38,6 @@ class MockPresenter extends Presenter
 
 	public function isLinkCurrent(string $destination = null, $args = []): bool
 	{
-		return ($destination == $this->currentDestination);
+		return $destination == $this->currentDestination;
 	}
-
 }

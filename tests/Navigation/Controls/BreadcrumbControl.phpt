@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class BreadcrumbControlTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\BreadcrumbControl';
 
 
@@ -32,7 +31,7 @@ class BreadcrumbControlTest extends TestCase
 
 	public function testRenderRootItem()
 	{
-		$dom = $this->renderControl(['root' => NULL]);
+		$dom = $this->renderControl(['root' => null]);
 		Assert::count(4, $dom->find('li'));
 
 		$dom = $this->renderControl(['root' => 'setting']);
@@ -45,7 +44,6 @@ class BreadcrumbControlTest extends TestCase
 		Assert::count(1, $active);
 		Assert::equal('Web', trim($active[0]));
 	}
-
 }
 
 

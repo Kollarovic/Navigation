@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test\Controls;
 
@@ -9,8 +10,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class PanelControlTest extends TestCase
 {
-
-
 	protected $controlClass = 'Kollarovic\Navigation\PanelControl';
 
 
@@ -25,7 +24,7 @@ class PanelControlTest extends TestCase
 
 	public function testRenderRootItem()
 	{
-		$dom = $this->renderControl(['root' => NULL]);
+		$dom = $this->renderControl(['root' => null]);
 		Assert::count(2, $dom->find('a'));
 		Assert::true($dom->has('a[href="/setting/default"]'));
 
@@ -35,8 +34,6 @@ class PanelControlTest extends TestCase
 		Assert::true($dom->has('a[href="/setting/base"]'));
 		Assert::true($dom->has('a[href="/setting/advanced"]'));
 	}
-
-
 }
 
 

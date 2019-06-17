@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Kollarovic\Navigation\DI;
 
 use Kollarovic\Navigation\ItemsFactory;
 use Nette\DI\CompilerExtension;
 
-
 class Extension extends CompilerExtension
 {
-
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig();
@@ -16,5 +16,4 @@ class Extension extends CompilerExtension
 		$builder->addDefinition($this->prefix('itemsFactory'))
 			->setFactory(ItemsFactory::class, [$config]);
 	}
-
 }

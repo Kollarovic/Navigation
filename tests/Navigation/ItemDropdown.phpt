@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -9,7 +10,6 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class ItemDropdownTest extends TestCase
 {
-
 	public function testDropdown()
 	{
 		$rootItem = $this->createItems();
@@ -21,7 +21,6 @@ class ItemDropdownTest extends TestCase
 		Assert::false($rootItem['setting']['advanced']['web']->isDropdown());
 		Assert::false($rootItem['setting']['advanced']['mail']->isDropdown());
 	}
-
 }
 
 

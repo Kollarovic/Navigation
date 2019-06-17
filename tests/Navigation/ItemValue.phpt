@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Kollarovic\Navigation\Test;
 
@@ -10,17 +11,14 @@ require_once __DIR__ . '/../bootstrap.php';
 
 class ItemValueTest extends TestCase
 {
-
-
 	public function testValue()
 	{
 		$item = new Item('test', '#');
 		$item->setValue(40);
 		Assert::same(40, $item->getValue());
-		$item->setValue(function(Item $item){ return 10;});
+		$item->setValue(function (Item $item) { return 10;});
 		Assert::same(10, $item->getValue());
 	}
-
 }
 
 

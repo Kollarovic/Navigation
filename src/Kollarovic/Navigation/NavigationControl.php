@@ -7,7 +7,6 @@ namespace Kollarovic\Navigation;
 use Nette\Application\UI\Control;
 use Nette\Localization\ITranslator;
 
-
 class NavigationControl extends Control
 {
 
@@ -18,7 +17,7 @@ class NavigationControl extends Control
 	private $translator;
 
 
-	function __construct(Item $rootItem, ITranslator $translator = null)
+	public function __construct(Item $rootItem, ITranslator $translator = null)
 	{
 		$this->rootItem = $rootItem;
 		$this->translator = $translator;
@@ -71,5 +70,4 @@ class NavigationControl extends Control
 	{
 		return new TitleControl($this->rootItem, $this->translator);
 	}
-
 }
