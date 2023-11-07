@@ -25,7 +25,7 @@ class BreadcrumbControlTest extends TestCase
 
 		$active = $dom->find('li.active');
 		Assert::count(1, $active);
-		Assert::equal('Web', trim($active[0]));
+		Assert::equal('Web', trim((string)$active[0]));
 	}
 
 
@@ -42,7 +42,7 @@ class BreadcrumbControlTest extends TestCase
 
 		$active = $dom->find('li.active');
 		Assert::count(1, $active);
-		Assert::equal('Web', trim($active[0]));
+		Assert::equal('Web', trim((string)$active[0]));
 	}
 }
 
