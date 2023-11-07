@@ -82,13 +82,7 @@ abstract class BaseControl extends Control
 			throw new UnexpectedValueException();
 		}
 
-		if ($this->translator) {
-			$template->setTranslator($this->translator);
-		} else {
-			$template->addFilter('translate', function ($str) {
-				return $str;
-			});
-		}
+        $template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
 
 		$reflection = new ReflectionClass($this);
 		$file = $this->templateFile ?: __DIR__ . "/templates/{$reflection->getShortName()}.latte";
@@ -97,7 +91,7 @@ abstract class BaseControl extends Control
 
 		$options += $this->options;
 
-		foreach ($options as $key => $value) {
+        foreach ($options as $key => $value) {
 			$this->template->$key = $value;
 		}
 
