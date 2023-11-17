@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Kollarovic\Navigation;
 
 use Nette\Application\UI\Control;
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 
 class NavigationControl extends Control
 {
 
 	/** @var Item */
-	private $rootItem;
+	private Item $rootItem;
 
-	/** @var ITranslator|null */
-	private $translator;
+	/** @var ?Translator */
+	private ?Translator $translator;
 
 
-	public function __construct(Item $rootItem, ITranslator $translator = null)
+	public function __construct(Item $rootItem, ?Translator $translator = null)
 	{
 		$this->rootItem = $rootItem;
 		$this->translator = $translator;
