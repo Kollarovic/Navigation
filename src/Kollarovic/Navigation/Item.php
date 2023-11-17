@@ -8,41 +8,44 @@ use ArrayAccess;
 use Nette\InvalidArgumentException;
 use Nette\Utils\Validators;
 
+/**
+ * @implements ArrayAccess<string, Item>
+ */
 class Item implements ArrayAccess
 {
 
 	/** @var string */
-	private $name;
+	private string $name;
 
 	/** @var string */
-	private $label;
+	private string $label;
 
 	/** @var string */
-	private $link;
+	private string $link;
 
 	/** @var mixed */
-	private $linkArgs = [];
+	private mixed $linkArgs = [];
 
-	/** @var string|null */
-	private $icon;
+	/** @var ?string */
+	private ?string $icon;
 
-	/** @var string|null */
-	private $resource;
+	/** @var ?string */
+	private ?string $resource;
 
-	/** @var string */
-	private $value;
-
-	/** @var bool */
-	private $active = true;
+	/** @var mixed */
+	private mixed $value = null;
 
 	/** @var bool */
-	private $current = false;
+	private bool $active = true;
 
-	/** @var array */
-	private $items = [];
+	/** @var bool */
+	private bool $current = false;
 
-	/** @var array */
-	private $options = [];
+	/** @var array<string, Item> */
+	private array $items = [];
+
+	/** @var array<string, mixed> */
+	private array $options = [];
 
 
 	public function __construct(string $label, ?string $link, ?string $icon = null, ?string $resource = null)
@@ -63,9 +66,9 @@ class Item implements ArrayAccess
 
 	/**
 	 * @param bool $deep
-	 * @return Item[]
+	 * @return array<Item>
 	 */
-	public function getItems(bool $deep = false)
+	public function getItems(bool $deep = false): array
 	{
 		$items = array_values($this->items);
 		if ($deep) {
@@ -132,9 +135,9 @@ class Item implements ArrayAccess
 
 
 	/**
-	 * @return Item[]
+	 * @return array<Item>
 	 */
-	public function getPath()
+	public function getPath(): array
 	{
 		$items = [];
 		foreach ($this->getItems(true) as $item) {
@@ -149,101 +152,108 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getValue()
+    public function setValue(mixed $value): self
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+
+    public function getValue(): mixed
 	{
 		return is_callable($this->value) ? call_user_func_array($this->value, [$this]) : $this->value;
 	}
 
 
-	public function setOption(string $name, $value): self
+	public function setOption(string $name, mixed $value): self
 	{
 		$this->options[$name] = $value;
 		return $this;
 	}
 
 
-	public function getOption(string $name, $default = null)
+	public function getOption(string $name, mixed $default = null): mixed
 	{
 		return isset($this->options[$name]) ? $this->options[$name] : $default;
 	}
 
 
-	public function setName(string $name)
-	{
-		if (!preg_match('~^[a-zA-Z0-9_]+~', $name)) {
-			throw new InvalidArgumentException("Name must be non-empty alphanumeric string, '$name' given.");
-		}
-		$this->name = $name;
-		return $this;
-	}
+    public function setLinkArgs(mixed $linkArgs): self
+    {
+        $this->linkArgs = $linkArgs;
+        return $this;
+    }
 
 
-	public function getLinkArgs()
+    public function getLinkArgs(): mixed
 	{
 		return $this->linkArgs;
 	}
 
 
-	public function setLinkArgs($linkArgs): self
-	{
-		$this->linkArgs = $linkArgs;
-		return $this;
-	}
+    public function setIcon(string $icon): self
+    {
+        $this->icon = $icon;
+        return $this;
+    }
 
 
-	public function getIcon(): ?string
+    public function getIcon(): ?string
 	{
 		return $this->icon;
 	}
 
 
-	public function setIcon(string $icon): self
-	{
-		$this->icon = $icon;
-		return $this;
-	}
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
+        return $this;
+    }
 
 
-	public function getResource(): ?string
+    public function getResource(): ?string
 	{
 		return $this->resource;
 	}
 
 
-	public function setResource(string $resource): self
-	{
-		$this->resource = $resource;
-		return $this;
-	}
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+        return $this;
+    }
 
 
-	public function isActive(): bool
+    public function isActive(): bool
 	{
 		return $this->active;
 	}
 
 
-	public function setActive(bool $active): self
-	{
-		$this->active = $active;
-		return $this;
-	}
+    public function setCurrent(bool $current): self
+    {
+        $this->current = $current;
+        return $this;
+    }
 
 
-	public function isCurrent(): bool
+    public function isCurrent(): bool
 	{
 		return $this->current;
 	}
 
 
-	public function setCurrent(bool $current): self
-	{
-		$this->current = $current;
-		return $this;
-	}
+    public function setName(?string $name): self
+    {
+        if (empty($name) or !preg_match('~^[a-zA-Z0-9_]+~', $name)) {
+            throw new InvalidArgumentException("Name must be non-empty alphanumeric string, '$name' given.");
+        }
+        $this->name = $name;
+        return $this;
+    }
 
 
-	public function getName(): string
+    public function getName(): string
 	{
 		return $this->name;
 	}
@@ -261,27 +271,26 @@ class Item implements ArrayAccess
 	}
 
 
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function setOptions(array $options): self
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+
+    /**
+     * @return array<string, mixed>
+     */
 	public function getOptions(): array
 	{
 		return $this->options;
 	}
 
 
-	public function setValue($value): self
-	{
-		$this->value = $value;
-		return $this;
-	}
-
-
-	public function setOptions(array $options): self
-	{
-		$this->options = $options;
-		return $this;
-	}
-
-
-	public function __toString()
+	public function __toString(): string
 	{
 		return (string) $this->label;
 	}
@@ -292,34 +301,34 @@ class Item implements ArrayAccess
 	 ********************************************************************************/
 
 
-	public function offsetExists($offset)
-	{
+	public function offsetExists($offset): bool
+    {
 		return isset($this->items[$offset]);
 	}
 
 
-	public function offsetGet($name)
-	{
+	public function offsetGet($offset): Item
+    {
 		$item = $this;
-		foreach (explode('-', $name) as $key) {
+		foreach (explode('-', $offset) as $key) {
 			$item = $item->getItem($key);
 		}
 		return $item;
 	}
 
 
-	public function offsetSet($name, $item)
+	public function offsetSet($offset, $value): void
 	{
-		if (!$item instanceof self) {
-			throw new InvalidArgumentException(sprintf('Value must be %s, %s given.', get_called_class(), gettype($item)));
+		if (!$value instanceof self) {
+			throw new InvalidArgumentException(sprintf('Value must be %s, %s given.', get_called_class(), gettype($offset)));
 		}
-		$item->setName($name);
-		$this->items[$name] = $item;
+        $value->setName($offset);
+		$this->items[$offset] = $value;
 	}
 
 
-	public function offsetUnset($offset)
-	{
+	public function offsetUnset($offset): void
+    {
 		unset($this->items[$offset]);
 	}
 }

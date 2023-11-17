@@ -7,27 +7,27 @@ namespace Kollarovic\Navigation;
 use Nette\Application\IPresenter;
 use Nette\Application\UI\Control;
 use Nette\Bridges\ApplicationLatte\Template;
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 use Nette\UnexpectedValueException;
 use ReflectionClass;
 
 abstract class BaseControl extends Control
 {
 
-	/** @var array */
-	protected $options = [];
+    /** @var Item */
+    private Item $rootItem;
 
-	/** @var string */
-	private $templateFile;
+    /** @var ?Translator */
+    private ?Translator $translator;
 
-	/** @var Item */
-	private $rootItem;
+	/** @var array<string, mixed> */
+	protected array $options = [];
 
-	/** @var ITranslator|null */
-	private $translator;
+	/** @var ?string */
+	private ?string $templateFile;
 
 
-	public function __construct(Item $rootItem, ITranslator $translator = null)
+	public function __construct(Item $rootItem, ?Translator $translator = null)
 	{
 		$this->rootItem = $rootItem;
 		$this->translator = $translator;
@@ -41,14 +41,19 @@ abstract class BaseControl extends Control
 		});
 	}
 
+    /**
+     * @return array<string, mixed>
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
 
-	public function getOptions(): array
-	{
-		return $this->options;
-	}
 
-
-	public function setOptions(array $options): self
+    /**
+     * @param array<string, mixed> $options
+     */
+    public function setOptions(array $options): self
 	{
 		$this->options = $options;
 		return $this;
@@ -61,7 +66,7 @@ abstract class BaseControl extends Control
 	}
 
 
-	public function getTemplateFile(): string
+	public function getTemplateFile(): ?string
 	{
 		return $this->templateFile;
 	}
@@ -74,6 +79,9 @@ abstract class BaseControl extends Control
 	}
 
 
+    /**
+     * @param array<string, mixed> $options
+     */
 	public function render(array $options = []): void
 	{
 		$template = $this->getTemplate();
@@ -85,7 +93,7 @@ abstract class BaseControl extends Control
         $template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
 
 		$reflection = new ReflectionClass($this);
-		$file = $this->templateFile ?: __DIR__ . "/templates/{$reflection->getShortName()}.latte";
+		$file = $this->templateFile ?? __DIR__ . "/templates/{$reflection->getShortName()}.latte";
 		$template->setFile($file);
 		$template->ajax = false;
 
@@ -101,10 +109,13 @@ abstract class BaseControl extends Control
 	}
 
 
-	abstract protected function prepareTemplate(Template $template, Item $rootItem);
+	abstract protected function prepareTemplate(Template $template, Item $rootItem): void;
 
 
-	private function getRootItemByOptions(array $options)
+    /**
+     * @param array<string, mixed> $options
+     */
+	private function getRootItemByOptions(array $options): Item
 	{
 		$item = $this->rootItem;
 		if (!empty($options['root'])) {

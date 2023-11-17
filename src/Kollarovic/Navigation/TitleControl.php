@@ -8,7 +8,7 @@ use Nette\Bridges\ApplicationLatte\Template;
 
 class TitleControl extends BaseControl
 {
-	protected function prepareTemplate(Template $template, Item $rootItem)
+	protected function prepareTemplate(Template $template, Item $rootItem): void
 	{
 		$template->item = $rootItem->getCurrentItem();
 	}

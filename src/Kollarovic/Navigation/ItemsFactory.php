@@ -9,11 +9,11 @@ use Nette\InvalidArgumentException;
 class ItemsFactory
 {
 
-	/** @var array */
-	private $config;
+    /** @var array<string, mixed> */
+	private array $config;
 
-	/** @var array */
-	private $default = [
+	/** @var array<string, mixed> */
+	private array $default = [
 		'label' => 'None',
 		'link' => null,
 		'linkArgs' => [],
@@ -25,10 +25,13 @@ class ItemsFactory
 		'options' => [],
 	];
 
-	/** @var array */
-	private $items = [];
+	/** @var array<Item> */
+	private array $items = [];
 
 
+    /**
+     * @param array<string, mixed> $config
+     */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
@@ -42,7 +45,7 @@ class ItemsFactory
 		}
 
 		if (!array_key_exists($name, $this->config)) {
-			throw new InvalidArgumentException("Navigation '$name' is not defined");
+			throw new InvalidArgumentException("Navigation '$name' is not defined.");
 		}
 
 		$config = (array) $this->config[$name] + $this->default;
@@ -54,7 +57,7 @@ class ItemsFactory
 	}
 
 
-	private function addItems(Item $rootItem, $items)
+	private function addItems(Item $rootItem, mixed $items): void
 	{
 		if (!is_array($items)) {
 			return;

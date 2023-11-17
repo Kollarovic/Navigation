@@ -8,7 +8,8 @@ use Nette\Bridges\ApplicationLatte\Template;
 
 class MenuControl extends BaseControl
 {
-	protected $options = [
+    /** @var array<string, mixed> */
+    protected array $options = [
 		'class' => 'nav',
 		'subclass' => 'nav',
 		'activeClass' => 'active',
@@ -19,7 +20,7 @@ class MenuControl extends BaseControl
 	];
 
 
-	protected function prepareTemplate(Template $template, Item $rootItem)
+	protected function prepareTemplate(Template $template, Item $rootItem): void
 	{
 		$template->items = $rootItem->getItems();
 	}
