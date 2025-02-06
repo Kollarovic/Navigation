@@ -8,7 +8,7 @@ use Nette\Bridges\ApplicationLatte\Template;
 
 class BreadcrumbControl extends BaseControl
 {
-    /** @var array<string, mixed> */
+	/** @var array<string, mixed> */
 	protected array $options = [
 		'class' => 'breadcrumb',
 	];

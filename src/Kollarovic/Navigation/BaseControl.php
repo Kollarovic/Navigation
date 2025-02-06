@@ -14,11 +14,11 @@ use ReflectionClass;
 abstract class BaseControl extends Control
 {
 
-    /** @var Item */
-    private Item $rootItem;
+	/** @var Item */
+	private Item $rootItem;
 
-    /** @var ?Translator */
-    private ?Translator $translator;
+	/** @var ?Translator */
+	private ?Translator $translator;
 
 	/** @var array<string, mixed> */
 	protected array $options = [];
@@ -41,19 +41,19 @@ abstract class BaseControl extends Control
 		});
 	}
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getOptions(): array
-    {
-        return $this->options;
-    }
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function getOptions(): array
+	{
+		return $this->options;
+	}
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
-    public function setOptions(array $options): self
+	/**
+	 * @param array<string, mixed> $options
+	 */
+	public function setOptions(array $options): self
 	{
 		$this->options = $options;
 		return $this;
@@ -79,9 +79,9 @@ abstract class BaseControl extends Control
 	}
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	public function render(array $options = []): void
 	{
 		$template = $this->getTemplate();
@@ -90,7 +90,7 @@ abstract class BaseControl extends Control
 			throw new UnexpectedValueException();
 		}
 
-        $template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
+		$template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
 
 		$reflection = new ReflectionClass($this);
 		$file = $this->templateFile ?? __DIR__ . "/templates/{$reflection->getShortName()}.latte";
@@ -99,7 +99,7 @@ abstract class BaseControl extends Control
 
 		$options += $this->options;
 
-        foreach ($options as $key => $value) {
+		foreach ($options as $key => $value) {
 			$this->template->$key = $value;
 		}
 
@@ -112,9 +112,9 @@ abstract class BaseControl extends Control
 	abstract protected function prepareTemplate(Template $template, Item $rootItem): void;
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	private function getRootItemByOptions(array $options): Item
 	{
 		$item = $this->rootItem;

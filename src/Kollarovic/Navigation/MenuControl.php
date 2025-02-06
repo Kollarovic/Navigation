@@ -8,8 +8,8 @@ use Nette\Bridges\ApplicationLatte\Template;
 
 class MenuControl extends BaseControl
 {
-    /** @var array<string, mixed> */
-    protected array $options = [
+	/** @var array<string, mixed> */
+	protected array $options = [
 		'class' => 'nav',
 		'subclass' => 'nav',
 		'activeClass' => 'active',

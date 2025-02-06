@@ -23,36 +23,36 @@ class NavigationControl extends Control
 		$this->translator = $translator;
 	}
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	public function renderMenu(array $options = []): void
 	{
 		$this['menu']->render($options);
 	}
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	public function renderBreadcrumb(array $options = []): void
 	{
 		$this['breadcrumb']->render($options);
 	}
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	public function renderPanel(array $options = []): void
 	{
 		$this['panel']->render($options);
 	}
 
 
-    /**
-     * @param array<string, mixed> $options
-     */
+	/**
+	 * @param array<string, mixed> $options
+	 */
 	public function renderTitle(array $options = []): void
 	{
 		$this['title']->render($options);

@@ -9,7 +9,7 @@ use Nette\InvalidArgumentException;
 class ItemsFactory
 {
 
-    /** @var array<string, mixed> */
+	/** @var array<string, mixed> */
 	private array $config;
 
 	/** @var array<string, mixed> */
@@ -29,9 +29,9 @@ class ItemsFactory
 	private array $items = [];
 
 
-    /**
-     * @param array<string, mixed> $config
-     */
+	/**
+	 * @param array<string, mixed> $config
+	 */
 	public function __construct(array $config)
 	{
 		$this->config = $config;
