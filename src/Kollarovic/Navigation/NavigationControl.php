@@ -7,6 +7,7 @@ namespace Kollarovic\Navigation;
 use Nette\Application\UI\Control;
 use Nette\Localization\Translator;
 
+
 class NavigationControl extends Control
 {
 

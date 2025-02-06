@@ -6,6 +6,7 @@ namespace Kollarovic\Navigation;
 
 use Nette\InvalidArgumentException;
 
+
 class ItemsFactory
 {
 

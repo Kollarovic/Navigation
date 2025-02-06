@@ -11,6 +11,7 @@ use Nette\Localization\Translator;
 use Nette\UnexpectedValueException;
 use ReflectionClass;
 
+
 abstract class BaseControl extends Control
 {
 
@@ -40,6 +41,7 @@ abstract class BaseControl extends Control
 			}
 		});
 	}
+
 
 	/**
 	 * @return array<string, mixed>

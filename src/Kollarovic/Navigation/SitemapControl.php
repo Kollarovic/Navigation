@@ -6,6 +6,7 @@ namespace Kollarovic\Navigation;
 
 use Nette\Bridges\ApplicationLatte\Template;
 
+
 class SitemapControl extends BaseControl
 {
 	/** @var array<string, mixed> */

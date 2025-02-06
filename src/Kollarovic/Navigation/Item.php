@@ -8,6 +8,7 @@ use ArrayAccess;
 use Nette\InvalidArgumentException;
 use Nette\Utils\Validators;
 
+
 /**
  * @implements ArrayAccess<string, Item>
  */
