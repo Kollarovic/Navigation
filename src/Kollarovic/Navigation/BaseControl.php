@@ -68,9 +68,9 @@ abstract class BaseControl extends Control
 	}
 
 
-	public function getTemplateFile(): ?string
+	public function getTemplateFile(): string
 	{
-		return $this->templateFile;
+		return $this->templateFile ?? $this->getDefaultTemplateFile();
 	}
 
 
@@ -94,9 +94,7 @@ abstract class BaseControl extends Control
 
 		$template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
 
-		$reflection = new ReflectionClass($this);
-		$file = $this->templateFile ?? __DIR__ . "/templates/{$reflection->getShortName()}.latte";
-		$template->setFile($file);
+		$template->setFile($this->getTemplateFile());
 		$template->ajax = false;
 
 		$options += $this->options;
@@ -125,4 +123,12 @@ abstract class BaseControl extends Control
 		}
 		return $item;
 	}
+
+
+	private function getDefaultTemplateFile(): string
+	{
+		$reflection = new ReflectionClass($this);
+		return __DIR__ . "/templates/{$reflection->getShortName()}.latte";
+	}
+
 }
