@@ -94,7 +94,8 @@ abstract class BaseControl extends Control
 
 		$template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
 
-		$template->setFile($this->getTemplateFile());
+		$file = $options['templateFile'] ?? $this->getTemplateFile();
+		$template->setFile($file);
 		$template->ajax = false;
 
 		$options += $this->options;
