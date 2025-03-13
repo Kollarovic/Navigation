@@ -14,25 +14,15 @@ use ReflectionClass;
 
 abstract class BaseControl extends Control
 {
-
-	/** @var Item */
-	private Item $rootItem;
-
-	/** @var ?Translator */
-	private ?Translator $translator;
-
 	/** @var array<string, mixed> */
 	protected array $options = [];
-
-	/** @var ?string */
 	private ?string $templateFile;
 
 
-	public function __construct(Item $rootItem, ?Translator $translator = null)
-	{
-		$this->rootItem = $rootItem;
-		$this->translator = $translator;
-
+	public function __construct(
+		private readonly Item $rootItem,
+		private readonly Translator $translator = new FallbackTranslator()
+	) {
 		$this->monitor(IPresenter::class, function () {
 			foreach ($this->rootItem->getItems(true) as $item) {
 				if (!$item->isUrl()) {
@@ -92,7 +82,7 @@ abstract class BaseControl extends Control
 			throw new UnexpectedValueException();
 		}
 
-		$template->setTranslator($this->translator ? $this->translator : new FallbackTranslator());
+		$template->setTranslator($this->translator);
 
 		$file = $options['templateFile'] ?? $this->getTemplateFile();
 		$template->setFile($file);

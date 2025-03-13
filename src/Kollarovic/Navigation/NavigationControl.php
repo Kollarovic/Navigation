@@ -11,18 +11,12 @@ use Nette\Localization\Translator;
 class NavigationControl extends Control
 {
 
-	/** @var Item */
-	private Item $rootItem;
-
-	/** @var ?Translator */
-	private ?Translator $translator;
-
-
-	public function __construct(Item $rootItem, ?Translator $translator = null)
-	{
-		$this->rootItem = $rootItem;
-		$this->translator = $translator;
+	public function __construct(
+		private readonly Item $rootItem,
+		private readonly Translator $translator = new FallbackTranslator()
+	) {
 	}
+
 
 	/**
 	 * @param array<string, mixed> $options
