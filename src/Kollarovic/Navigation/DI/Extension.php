@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Kollarovic\Navigation\DI;
 
-use Kollarovic\Navigation\ItemsFactory;
+use Kollarovic\Navigation\DefaultItemsFactory;
 use Nette\DI\CompilerExtension;
 
 
@@ -15,6 +15,6 @@ class Extension extends CompilerExtension
 		$config = $this->getConfig();
 		$builder = $this->getContainerBuilder();
 		$builder->addDefinition($this->prefix('itemsFactory'))
-			->setFactory(ItemsFactory::class, [$config]);
+			->setFactory(DefaultItemsFactory::class, [$config]);
 	}
 }

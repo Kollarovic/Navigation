@@ -7,7 +7,7 @@ namespace Kollarovic\Navigation;
 use Nette\InvalidArgumentException;
 
 
-class ItemsFactory
+class DefaultItemsFactory
 {
 
 	/** @var array<string, mixed> */
