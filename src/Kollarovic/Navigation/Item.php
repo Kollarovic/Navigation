@@ -175,7 +175,7 @@ class Item implements ArrayAccess
 
 	public function getOption(string $name, mixed $default = null): mixed
 	{
-		return isset($this->options[$name]) ? $this->options[$name] : $default;
+		return $this->options[$name] ?? $default;
 	}
 
 
