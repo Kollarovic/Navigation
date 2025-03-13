@@ -10,7 +10,7 @@ use Nette\DI\CompilerExtension;
 
 class Extension extends CompilerExtension
 {
-	public function loadConfiguration()
+	public function loadConfiguration(): void
 	{
 		$config = $this->getConfig();
 		$builder = $this->getContainerBuilder();
