@@ -192,7 +192,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setIcon(string $icon): self
+	public function setIcon(?string $icon): self
 	{
 		$this->icon = $icon;
 		return $this;
@@ -205,7 +205,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setResource(string $resource): self
+	public function setResource(?string $resource): self
 	{
 		$this->resource = $resource;
 		return $this;
