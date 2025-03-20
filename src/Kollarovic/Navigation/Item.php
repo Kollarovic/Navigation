@@ -58,7 +58,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): static
+	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): self
 	{
 		$item = new self($label, $link, $icon, $resource);
 		return $this[$name] = $item;
@@ -81,7 +81,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getItem(string $name): static
+	public function getItem(string $name): self
 	{
 		if (!isset($this->items[$name])) {
 			throw new InvalidArgumentException("Item with name '$name' does not exist.");
@@ -90,7 +90,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getCurrentItem(): ?static
+	public function getCurrentItem(): ?self
 	{
 		if ($this->isCurrent()) {
 			return $this;
