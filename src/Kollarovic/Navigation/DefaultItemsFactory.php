@@ -9,7 +9,6 @@ use Nette\InvalidArgumentException;
 
 class DefaultItemsFactory implements ItemsFactory
 {
-
 	/** @var array<string, mixed> */
 	private array $config;
 

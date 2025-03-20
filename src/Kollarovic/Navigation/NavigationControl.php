@@ -10,7 +10,6 @@ use Nette\Localization\Translator;
 
 class NavigationControl extends Control
 {
-
 	public function __construct(
 		private readonly Item $rootItem,
 		private readonly Translator $translator = new FallbackTranslator()
