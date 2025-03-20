@@ -58,7 +58,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): self
+	public function addItem(string $name, string $label, ?string $link, ?string $icon = null, ?string $resource = null): static
 	{
 		$item = new self($label, $link, $icon, $resource);
 		return $this[$name] = $item;
@@ -81,7 +81,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getItem(string $name): self
+	public function getItem(string $name): static
 	{
 		if (!isset($this->items[$name])) {
 			throw new InvalidArgumentException("Item with name '$name' does not exist.");
@@ -90,7 +90,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function getCurrentItem(): ?self
+	public function getCurrentItem(): ?static
 	{
 		if ($this->isCurrent()) {
 			return $this;
@@ -153,7 +153,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setValue(mixed $value): self
+	public function setValue(mixed $value): static
 	{
 		$this->value = $value;
 		return $this;
@@ -166,7 +166,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setOption(string $name, mixed $value): self
+	public function setOption(string $name, mixed $value): static
 	{
 		$this->options[$name] = $value;
 		return $this;
@@ -179,7 +179,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setLinkArgs(mixed $linkArgs): self
+	public function setLinkArgs(mixed $linkArgs): static
 	{
 		$this->linkArgs = $linkArgs;
 		return $this;
@@ -192,7 +192,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setIcon(?string $icon): self
+	public function setIcon(?string $icon): static
 	{
 		$this->icon = $icon;
 		return $this;
@@ -205,7 +205,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setResource(?string $resource): self
+	public function setResource(?string $resource): static
 	{
 		$this->resource = $resource;
 		return $this;
@@ -218,7 +218,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setActive(bool $active): self
+	public function setActive(bool $active): static
 	{
 		$this->active = $active;
 		return $this;
@@ -231,7 +231,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setCurrent(bool $current): self
+	public function setCurrent(bool $current): static
 	{
 		$this->current = $current;
 		return $this;
@@ -244,7 +244,7 @@ class Item implements ArrayAccess
 	}
 
 
-	public function setName(?string $name): self
+	public function setName(?string $name): static
 	{
 		if (empty($name) or !preg_match('~^[a-zA-Z0-9_]+~', $name)) {
 			throw new InvalidArgumentException("Name must be non-empty alphanumeric string, '$name' given.");
@@ -275,7 +275,7 @@ class Item implements ArrayAccess
 	/**
 	 * @param array<string, mixed> $options
 	 */
-	public function setOptions(array $options): self
+	public function setOptions(array $options): static
 	{
 		$this->options = $options;
 		return $this;
